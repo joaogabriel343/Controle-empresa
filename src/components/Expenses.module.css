@@ -1,66 +1,118 @@
+/* Fundo branco para o contêiner principal */
 .expenses {
-    background-color: #ffffff;
-    color: #0056b3;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: 20px auto;
-  }
-  
-  .expenses h1 {
-    text-align: center;
-    color: #003580;
-  }
-  
-  .expenses-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .expensesForm {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .expenses-form input,
-  .expenses-form select,
-  .expenses-form button {
-    padding: 10px;
-    border: 1px solid #b3d9ff;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  
-  .expenses-form button {
-    background-color: #0056b3;
-    color: #ffffff;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .expenses-form button:hover {
-    background-color: #003580;
-  }
-  
-  .expenses-list ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .expenses-list li {
-    padding: 10px;
-    border-bottom: 1px solid #b3d9ff;
-  }
-  
-  .error {
-    color: #d9534f;
-    font-weight: bold;
-    margin-top: 10px;
-    text-align: center;
-  }
-  
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+  color: #073b61;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Título principal estilizado */
+.expenses h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  color: #0369a1;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 4px #60a5fa;
+}
+
+/* Formulário de gastos */
+.expensesForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.expensesForm select,
+.expensesForm input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 2px solid #0369a1;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.expensesForm select:focus,
+.expensesForm input:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 8px rgba(96, 165, 250, 0.7);
+}
+
+.expensesForm button {
+  background-color: #42a5f5;
+  color: white;
+  font-size: 1rem;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.expensesForm button:hover {
+  background-color: #60a5fa;
+  box-shadow: 0 4px 8px rgba(96, 165, 250, 0.5);
+}
+
+/* Mensagem de erro */
+.error {
+  color: #e63946;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* Lista de empresas */
+.expensesList {
+  margin-top: 20px;
+}
+
+.expensesList h2 {
+  font-size: 2rem;
+  color: #0369a1;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.expensesList ul {
+  list-style: none;
+  padding: 0;
+}
+
+.expensesList li {
+  background: #eff6ff;
+  border: 2px solid #60a5fa;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+
+.expensesList li:hover {
+  background: #60a5fa;
+  color: white;
+  border-color: #0369a1;
+}
+
+.expensesList li strong {
+  color: #0369a1;
+}
+
+/* Sub-lista de gastos */
+.expensesList li ul {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+.expensesList li ul li {
+  background: #dbeafe;
+  border: none;
+  border-radius: 4px;
+  padding: 5px;
+  color: #0369a1;
+}

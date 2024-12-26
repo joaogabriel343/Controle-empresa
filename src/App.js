@@ -112,7 +112,7 @@ function App() {
                   - Capital: {c.capital}
                   <button onClick={() => deleteCompany(c)}>Excluir</button>
                   <ul>
-                    <h4>CEOs:</h4>
+                    <h4>Funcionários:</h4>
                     {c.ceos.length > 0 ? (
                       c.ceos.map((ceo, idx) => (
                         <li key={idx}>
@@ -138,7 +138,7 @@ function App() {
       </div>
 
       <div className="section">
-        <h2>Cadastro de CEOs</h2>
+        <h2>Cadastro de CEOs e Funcionários</h2>
         <div className="add-ceo">
           <input
             type="text"
