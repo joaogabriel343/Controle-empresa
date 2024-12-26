@@ -1,0 +1,66 @@
+.expenses {
+    background-color: #ffffff;
+    color: #0056b3;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 20px auto;
+  }
+  
+  .expenses h1 {
+    text-align: center;
+    color: #003580;
+  }
+  
+  .expenses-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .expensesForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .expenses-form input,
+  .expenses-form select,
+  .expenses-form button {
+    padding: 10px;
+    border: 1px solid #b3d9ff;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .expenses-form button {
+    background-color: #0056b3;
+    color: #ffffff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .expenses-form button:hover {
+    background-color: #003580;
+  }
+  
+  .expenses-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .expenses-list li {
+    padding: 10px;
+    border-bottom: 1px solid #b3d9ff;
+  }
+  
+  .error {
+    color: #d9534f;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
