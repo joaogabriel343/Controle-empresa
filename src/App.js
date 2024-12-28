@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import "./App.css";
 import Expenses from "./components/Expenses";
 
@@ -10,54 +11,81 @@ function App() {
     capital: "",
   });
   const [companies, setCompanies] = useState([]);
-
   const [ceo, setCeo] = useState({ name: "", position: "" });
   const [selectedCompany, setSelectedCompany] = useState("");
 
-  const addCompany = () => {
-    if (company.name.trim() !== "") {
-      setCompanies([...companies, { ...company, ceos: [], capital: parseFloat(company.capital) }]);
-      setCompany({
-        name: "",
-        fantasyName: "",
-        creationDate: "",
-        capital: "",
-      });
+  useEffect(() => {
+    fetchCompanies();
+  }, []);
+
+  const fetchCompanies = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/companies");
+      setCompanies(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar empresas:", error);
     }
   };
 
-  const deleteCompany = (companyToDelete) => {
-    setCompanies(companies.filter((c) => c !== companyToDelete));
+  const addCompany = async () => {
+    if (company.name.trim() !== "") {
+      const validCapital = parseFloat(company.capital);
+      const newCompany = {
+        ...company,
+        capital: isNaN(validCapital) || validCapital <= 0 ? 0 : validCapital,
+      };
+
+      try {
+        await axios.post("http://localhost:5000/companies", newCompany);
+        fetchCompanies(); 
+        setCompany({
+          name: "",
+          fantasyName: "",
+          creationDate: "",
+          capital: "",
+        });
+      } catch (error) {
+        console.error("Erro ao adicionar empresa:", error);
+      }
+    }
+  };
+
+  const deleteCompany = async (companyToDelete) => {
+    try {
+      await axios.delete(`http://localhost:5000/companies/${companyToDelete.id}`);
+      fetchCompanies(); 
+    } catch (error) {
+      console.error("Erro ao excluir empresa:", error);
+    }
+  };
+
+  const addCeo = async () => {
+    if (ceo.name.trim() !== "" && selectedCompany) {
+      try {
+        await axios.post("http://localhost:5000/ceos", {
+          ...ceo,
+          companyName: selectedCompany,
+        });
+        fetchCompanies(); 
+        setCeo({ name: "", position: "" });
+      } catch (error) {
+        console.error("Erro ao adicionar CEO:", error);
+      }
+    }
+  };
+
+  const deleteCeo = async (companyName, ceoToDelete) => {
+    try {
+      await axios.delete(`http://localhost:5000/ceos/${companyName}/${ceoToDelete.name}`);
+      fetchCompanies(); 
+    } catch (error) {
+      console.error("Erro ao excluir CEO:", error);
+    }
   };
 
   const handleCompanyChange = (e) => {
     const { name, value } = e.target;
     setCompany({ ...company, [name]: value });
-  };
-
-  const addCeo = () => {
-    if (ceo.name.trim() !== "" && selectedCompany) {
-      setCompanies(
-        companies.map((c) => {
-          if (c.name === selectedCompany) {
-            return { ...c, ceos: [...c.ceos, ceo] };
-          }
-          return c;
-        })
-      );
-      setCeo({ name: "", position: "" });
-    }
-  };
-
-  const deleteCeo = (companyName, ceoToDelete) => {
-    setCompanies(
-      companies.map((c) => {
-        if (c.name === companyName) {
-          return { ...c, ceos: c.ceos.filter((ceo) => ceo !== ceoToDelete) };
-        }
-        return c;
-      })
-    );
   };
 
   const handleCeoChange = (e) => {
@@ -96,20 +124,18 @@ function App() {
             type="number"
             name="capital"
             value={company.capital}
-            onChange={handleCompanyChange}
+            onChange={(e) => setCompany({ ...company, capital: parseFloat(e.target.value) || "" })}
             placeholder="Capital"
           />
           <button onClick={addCompany}>Adicionar Empresa</button>
         </div>
-
         <div className="company-list">
-          <h3>Empresas Cadastradas</h3>
+          <h3 className="title-list">Empresas Cadastradas</h3>
           <ul>
             {companies.length > 0 ? (
               companies.map((c, index) => (
                 <li key={index}>
-                  <strong>{c.name}</strong> (Fantasia: {c.fantasyName}) - Criada em {c.creationDate}  
-                  - Capital: {c.capital}
+                  <strong>{c.name}</strong> (Fantasia: {c.fantasyName}) - Criada em {c.creationDate} - Capital: {c.capital > 0 ? `R$ ${parseFloat(c.capital).toFixed(2)}` : "Empresa sem Capital"}
                   <button onClick={() => deleteCompany(c)}>Excluir</button>
                   <ul>
                     <h4>Funcionários:</h4>
@@ -117,11 +143,7 @@ function App() {
                       c.ceos.map((ceo, idx) => (
                         <li key={idx}>
                           {ceo.name} - {ceo.position}
-                          <button
-                            onClick={() => deleteCeo(c.name, ceo)}
-                          >
-                            Excluir CEO
-                          </button>
+                          <button onClick={() => deleteCeo(c.name, ceo)}>Excluir {ceo.position}</button>
                         </li>
                       ))
                     ) : (
@@ -138,7 +160,7 @@ function App() {
       </div>
 
       <div className="section">
-        <h2>Cadastro de CEOs e Funcionários</h2>
+        <h2>Cadastro de CEOs</h2>
         <div className="add-ceo">
           <input
             type="text"
@@ -154,15 +176,10 @@ function App() {
             onChange={handleCeoChange}
             placeholder="Cargo do CEO"
           />
-          <select
-            value={selectedCompany}
-            onChange={(e) => setSelectedCompany(e.target.value)}
-          >
+          <select value={selectedCompany} onChange={(e) => setSelectedCompany(e.target.value)}>
             <option value="">Selecione uma empresa</option>
             {companies.map((c, index) => (
-              <option key={index} value={c.name}>
-                {c.name}
-              </option>
+              <option key={index} value={c.name}>{c.name}</option>
             ))}
           </select>
           <button onClick={addCeo}>Adicionar CEO</button>
@@ -173,4 +190,4 @@ function App() {
   );
 }
 
-export default App;  
+export default App;

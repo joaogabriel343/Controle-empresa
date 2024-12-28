@@ -1,82 +1,112 @@
-/* Fundo branco para o contêiner principal */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #e0f7fa; 
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff; 
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+h1 {
+  text-align: center;
+  color: #0277bd;
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
 .expenses {
   background-color: white;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  font-family: 'Arial', sans-serif;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
   color: #073b61;
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 850px;
+  margin: 20px auto;
+  transition: transform 0.3s ease;
 }
 
-/* Título principal estilizado */
+.expenses:hover {
+  transform: scale(1.02);
+}
+
 .expenses h1 {
-  font-size: 2.5rem;
+  font-size: 3rem;
   text-align: center;
   color: #0369a1;
-  margin-bottom: 20px;
-  text-shadow: 1px 1px 4px #60a5fa;
+  margin-bottom: 25px;
+  text-shadow: 2px 2px 6px rgba(96, 165, 250, 0.7);
 }
 
-/* Formulário de gastos */
-.expensesForm {
+.expensesForm, .addCapitalForm {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
-.expensesForm select,
-.expensesForm input {
-  padding: 10px;
-  font-size: 1rem;
-  border: 2px solid #0369a1;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+.expensesForm select, 
+.expensesForm input,
+.addCapitalForm select,
+.addCapitalForm input {
+  padding: 12px;
+  font-size: 1.1rem;
+  border: 2px solid #4dd0e1; 
+  border-radius: 6px;
+  transition: border-color 0.3s;
+  background-color: #f8fbff;
 }
 
-.expensesForm select:focus,
-.expensesForm input:focus {
+.expensesForm select:focus, 
+.expensesForm input:focus,
+.addCapitalForm select:focus,
+.addCapitalForm input:focus {
   outline: none;
-  border-color: #60a5fa;
-  box-shadow: 0 0 8px rgba(96, 165, 250, 0.7);
+  border-color: #0097a7; 
+  box-shadow: 0 0 10px rgba(96, 165, 250, 0.7);
 }
 
-.expensesForm button {
-  background-color: #42a5f5;
+.expensesForm button, 
+.addCapitalForm button {
+  background-color: #4dd0e1;
   color: white;
-  font-size: 1rem;
-  padding: 10px 20px;
+  font-size: 1.2rem;
+  padding: 12px 25px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
-.expensesForm button:hover {
-  background-color: #60a5fa;
-  box-shadow: 0 4px 8px rgba(96, 165, 250, 0.5);
+.expensesForm button:hover, 
+.addCapitalForm button:hover {
+  background-color: #26c6da; 
+  transform: translateY(-2px); 
 }
 
-/* Mensagem de erro */
 .error {
   color: #e63946;
   font-weight: bold;
   margin-top: 10px;
   text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
 }
 
-/* Lista de empresas */
 .expensesList {
   margin-top: 20px;
 }
 
 .expensesList h2 {
-  font-size: 2rem;
+  font-size: 2.2rem;
   color: #0369a1;
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .expensesList ul {
@@ -85,34 +115,64 @@
 }
 
 .expensesList li {
+  padding: 12px;
+  border: 2px solid #b2ebf2; 
+  border-radius: 6px;
+  margin-bottom: 15px;
   background: #eff6ff;
-  border: 2px solid #60a5fa;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  padding: 10px;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s;
+  position: relative;
 }
 
 .expensesList li:hover {
-  background: #60a5fa;
-  color: white;
+  background-color: white;
+  color: #0369a1;
   border-color: #0369a1;
+  box-shadow: 0 6px 12px rgba(96, 165, 250, 0.5);
 }
 
 .expensesList li strong {
   color: #0369a1;
+  font-weight: bold;
 }
 
-/* Sub-lista de gastos */
 .expensesList li ul {
-  margin-top: 10px;
-  padding-left: 20px;
+  margin-top: 15px;
+  padding-left: 25px;
 }
 
 .expensesList li ul li {
   background: #dbeafe;
   border: none;
-  border-radius: 4px;
-  padding: 5px;
+  border-radius: 6px;
+  padding: 8px;
   color: #0369a1;
+  margin-bottom: 8px;
+}
+
+.expensesList li ul li:hover {
+  background: white;
+  color: #0369a1;
+
+}
+
+.erroAcont {
+  color: #e63946;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+  to{
+    opacity: 0;
+  }
 }
